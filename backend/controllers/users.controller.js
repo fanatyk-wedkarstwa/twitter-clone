@@ -10,7 +10,10 @@ export const getUser = async (req, res) => {
     return res.status(404).json({ success: false, message: "Invalid User Id" });
   }
   try {
-    const user = await User.findById(id, "username pfp");
+    const user = await User.findById(
+      id,
+      "username pfp coverImg bio followers following",
+    );
     res.status(200).json({ success: true, data: user });
   } catch (error) {
     console.error(error);
@@ -32,13 +35,13 @@ export const signUp = async (req, res) => {
       .status(400)
       .json({ success: false, message: "Invalid email format." });
   }
-  const existingEmail = await User.find({ email });
+  const existingEmail = await User.findOne({ email });
   if (existingEmail) {
     return res
       .status(400)
       .json({ success: false, message: "Email is already taken." });
   }
-  const existingUser = await User.find({ username });
+  const existingUser = await User.findOne({ username });
   if (existingUser) {
     return res
       .status(400)
@@ -85,7 +88,57 @@ export const signUp = async (req, res) => {
   }
 };
 export const logIn = async (req, res) => {
-  res.send("Login page");
+  const { username, password, email } = req.body;
+
+  if ((!username || !email) && !password) {
+    console.log(username, email, password);
+    return res
+      .status(400)
+      .json({ success: false, message: "Please provide all required fields" });
+  }
+
+  try {
+    if (username) {
+      var existingUser = await User.findOne(
+        { username: username },
+        "username password email",
+      );
+    }
+    if (email) {
+      var existingUser = await User.findOne(
+        { email: email },
+        "username password email",
+      );
+    }
+
+    if (!existingUser) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid credentials." });
+    }
+    if ((await bcrypt.compare(password, existingUser.password)) === false) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid password." });
+    }
+    generateTokenAndSetCookie(existingUser._id, res); // Generate token and set cookie
+    res.status(200).json({
+      success: true,
+      data: {
+        _id: existingUser._id,
+        username: existingUser.username,
+        email: existingUser.email,
+        followers: existingUser.followers,
+        following: existingUser.following,
+        pfp: existingUser.pfp,
+        coverImg: existingUser.coverImg,
+        bio: existingUser.bio,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
 };
 export const logOut = async (req, res) => {
   res.send("Logout page");
