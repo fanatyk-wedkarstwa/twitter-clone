@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema({
   author: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   body: {

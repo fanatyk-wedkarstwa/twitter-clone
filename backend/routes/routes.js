@@ -1,8 +1,9 @@
 import express from "express";
 import {
-  createUser,
   getUser,
-  loginUser,
+  logIn,
+  logOut,
+  signUp,
 } from "../controllers/users.controller.js";
 import {
   createMessage,
@@ -12,8 +13,9 @@ import {
 const router = express.Router();
 
 router.get("/user/:id", getUser);
-router.post("/signup", createUser);
-router.post("/login", loginUser);
+router.post("/signup", signUp);
+router.post("/login", logIn);
+router.post("/logout", logOut);
 
 router.get("/message/:id", getMessage);
 router.post("/message", createMessage);

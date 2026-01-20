@@ -5,7 +5,7 @@ import { connectDB } from "./db/db.js";
 const PORT = process.env.PORT || 8001;
 const app = express();
 
-app.use(json());
+app.use(express.json());
 
 app.use("/api", routes);
 
