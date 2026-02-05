@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Home from "./Pages/Home.jsx";
 import LeftBar from "./Components/LeftBar.jsx";
 import RightBar from "./Components/RightBar.jsx";
+import Notifications from "./Pages/Notifications.jsx";
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
       <LeftBar />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="*" element={<Home />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
       </BrowserRouter>
       <RightBar />

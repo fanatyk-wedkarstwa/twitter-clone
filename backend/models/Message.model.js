@@ -22,6 +22,11 @@ const messageSchema = new mongoose.Schema({
         required: false,
       },
     ],
+    shares: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
 });
 

@@ -6,7 +6,7 @@ function LeftBar() {
   return (
     <div className="h-screen flex flex-col gap-8 text-5xl py-4 px-8 w-1/5">
       <FaXTwitter />
-      <div className="text-2xl flex flex-col gap-4">
+      <div className="text-xl flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <MdHomeFilled />
           <p>Home</p>

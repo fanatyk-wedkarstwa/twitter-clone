@@ -7,6 +7,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    display_name: {
+      type: String,
+      required: true,
+      unique: false,
+    },
     password: {
       type: String,
       required: true,
@@ -43,9 +48,16 @@ const userSchema = new mongoose.Schema(
         default: [],
       },
     ],
+    bookmarks: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Message",
+        default: [],
+      },
+    ],
   },
   {
-    timestams: true,
+    timestamps: true,
   },
 );
 
