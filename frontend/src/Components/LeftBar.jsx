@@ -1,6 +1,7 @@
 import { FaXTwitter, FaBell } from "react-icons/fa6";
 import { MdHomeFilled, MdPerson } from "react-icons/md";
 import ProfileUsr from "./ProfileUsr";
+import { Link } from "react-router";
 
 function LeftBar() {
   return (
@@ -9,15 +10,15 @@ function LeftBar() {
       <div className="text-xl flex flex-col gap-4">
         <div className="flex items-center gap-4">
           <MdHomeFilled />
-          <p>Home</p>
+          <Link to={"/"}>Home</Link>
         </div>
         <div className="flex items-center gap-4">
           <FaBell />
-          <p>Notifications</p>
+          <Link to={"/notifications"}>Notifications</Link>
         </div>
         <div className="flex items-center gap-4">
           <MdPerson />
-          <p>Profile</p>
+          <Link to={"/profile"}>Profile</Link>
         </div>
       </div>
       <ProfileUsr display_name={"Fishing"} username={"fishing"} />
